@@ -28,7 +28,6 @@ loadData <- function() {
         ###  [8] Sub_metering_3: in watt-hour of active energy
         d <- NULL
         if(!exists("x")) {
-                x <<- cacheData()
                 d <- read.table("data/household_power_consumption.txt", 
                                 header = TRUE, sep = ";", na.strings = "?",
                                 colClasses = c("character", "character", "numeric", 
@@ -45,6 +44,7 @@ loadData <- function() {
                 d <- cbind(Date, d)
                 
                 # Cache the data
+                x <<- cacheData()
                 x$set(d)
         } else {
                 ##message("getting cached data")
@@ -56,7 +56,7 @@ loadData <- function() {
 plotData <- loadData()
 
 png(filename = "plot4.png", width = 480, height = 480, units = "px",
-    bg = "transparent")
+    bg = "white")
 
 # Going by columns, then rows 2x2
 par(mfcol = c(2,2))
